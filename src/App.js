@@ -1,6 +1,6 @@
-import logo from './logo.svg';
+
 import './App.css';
-import CalorieCalculator from "./calcCall";
+import CalorieCalculator from "./test";
 
 function App() {
   return (
