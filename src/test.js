@@ -14,7 +14,7 @@ const CalorieCalculator = () => {
         e.preventDefault();
         const BMR = gender === 'male'
             ? 10 * weight + 6.25 * height - 5 * age + 5
-            : 10 * weight + 6.25 * height - 5 * age - 161;
+            :   10 * weight + 6.25 * height - 5 * age - 161;
         const TDEE = BMR * activityLevel;
         const calories = TDEE + (fatIntake * 9) + (carbIntake * 4) + (proteinIntake * 4);
         setResult(calories);
