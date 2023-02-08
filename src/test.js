@@ -9,10 +9,12 @@ const CalorieCalculator = () => {
     const [carbIntake, setCarbIntake] = useState(0);
     const [proteinIntake, setProteinIntake] = useState(0);
     const [result, setResult] = useState(0);
-
+    const [gender, setGender] = useState('male');
     const handleSubmit = (e) => {
         e.preventDefault();
-        const BMR = 10 * weight + 6.25 * height - 5 * age + 5;
+        const BMR = gender === 'male'
+            ? 10 * weight + 6.25 * height - 5 * age + 5
+            : 10 * weight + 6.25 * height - 5 * age - 161;
         const TDEE = BMR * activityLevel;
         const calories = TDEE + (fatIntake * 9) + (carbIntake * 4) + (proteinIntake * 4);
         setResult(calories);
@@ -22,7 +24,18 @@ const CalorieCalculator = () => {
         <div>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="weight">Weight (kg):</label>
+                    <label htmlFor="gender">Пол:</label>
+                    <select
+                        id="gender"
+                        value={gender}
+                        onChange={(e) => setGender(e.target.value)}
+                    >
+                        <option value="male">Мужской</option>
+                        <option value="female">Женский</option>
+                    </select>
+                </div>
+                <div>
+                    <label htmlFor="weight">Вес (kg):</label>
                     <input
                         type="number"
                         id="weight"
@@ -31,7 +44,7 @@ const CalorieCalculator = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="height">Height (cm):</label>
+                    <label htmlFor="height">Рост (cm):</label>
                     <input
                         type="number"
                         id="height"
@@ -40,7 +53,7 @@ const CalorieCalculator = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="age">Age (years):</label>
+                    <label htmlFor="age">Возраст (years):</label>
                     <input
                         type="number"
                         id="age"
@@ -49,17 +62,17 @@ const CalorieCalculator = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="activityLevel">Activity Level:</label>
+                    <label htmlFor="activityLevel">Уровень активности:</label>
                     <select
                         id="activityLevel"
                         value={activityLevel}
                         onChange={(e) => setActivityLevel(e.target.value)}
                     >
-                        <option value={1.2}>Sedentary (little or no exercise)</option>
-                        <option value={1.375}>Lightly active (light exercise 1-3 days/week)</option>
-                        <option value={1.55}>Moderately active (moderate exercise 3-5 days/week)</option>
-                        <option value={1.725}>Very active (hard exercise 6-7 days/week)</option>
-                        <option value={1.9}>Extremely active (very hard exercise, heavy manual labor, and/or sports 7 days/week)</option>
+                        <option value={1.2}>Малоподвижный образ жизни (мало физических упражнений или их отсутствие)</option>
+                        <option value={1.375}>Легкая активность (легкие упражнения 1-3 дня в неделю)</option>
+                        <option value={1.55}>Умеренно активный (умеренные физические нагрузки 3-5 дней в неделю)</option>
+                        <option value={1.725}>Очень активный (интенсивные упражнения 6-7 дней в неделю)</option>
+                        <option value={1.9}>Чрезвычайно активный (очень тяжелые физические упражнения, тяжелый физический труд и/или занятия спортом 7 дней в неделю)</option>
                     </select>
                 </div>
                 {/*<div>*/}
@@ -70,27 +83,27 @@ const CalorieCalculator = () => {
                 {/*    <button type="submit">Calculate</button>*/}
                 {/*</div>*/}
                 <div>
-                    <label>Fat (g):</label>
+                    <label>Жир (g):</label>
                     <input type="number" value={fatIntake} onChange={(e) => setFatIntake(e.target.value)} />
                 </div>
                 <div>
-                    <label>Carbohydrates (g):</label>
+                    <label>Углеводы (g):</label>
                     <input type="number" value={carbIntake} onChange={(e) => setCarbIntake(e.target.value)} />
                 </div>
                 <div>
-                    <label>Protein (g):</label>
+                    <label>Протеины (g):</label>
                     <input type="number" value={proteinIntake} onChange={(e) => setProteinIntake(e.target.value)} />
                 </div>
                 <button onClick={handleSubmit}>Calculate Total Calories</button>
                 <div>
-                    <label>Total Calories:</label>
+                    <label>Сумма каллорий:</label>
                     <span>{result}</span>
                 </div>
 
             </form>x
             <div>
                 <h3>Result:</h3>
-                <p>{result} calories per day</p>
+                <p>{result} Сколько нужно потреблять каллорий в день</p>
             </div>
         </div>
     )
